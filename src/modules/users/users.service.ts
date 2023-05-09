@@ -29,13 +29,21 @@ export class UsersService {
   }
 
   async getAll() {
-    const listUser = await this.userRepository.findAll();
+    const listUser = await this.userRepository.findAll({
+      attributes: { exclude: ['password'] },
+    });
     return {
       data: listUser,
     };
   }
 
   async findOneById(id: number) {
-    return await this.userRepository.findOne({ where: { id } });
+    const user = await this.userRepository.findOne({
+      where: { id },
+      attributes: { exclude: ['password'] },
+    });
+    return {
+      data: user,
+    };
   }
 }
