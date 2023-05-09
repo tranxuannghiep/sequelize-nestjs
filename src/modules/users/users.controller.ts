@@ -4,9 +4,11 @@ import {
   Controller,
   Get,
   Param,
+  Patch,
   Post,
   UseInterceptors,
 } from '@nestjs/common';
+import { UpdateUserDto } from './dto/update-user.dto';
 import { UserDto } from './dto/user.dto';
 import { UsersService } from './users.service';
 
@@ -17,6 +19,11 @@ export class UsersController {
   @Post()
   async createUser(@Body() user: UserDto) {
     return this.usersService.createUser(user);
+  }
+
+  @Patch(':id')
+  async updateUser(@Param('id') id: number, @Body() dataUpdate: UpdateUserDto) {
+    return this.usersService.updateUser(dataUpdate, id);
   }
 
   @Get('/all')
