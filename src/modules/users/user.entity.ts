@@ -1,4 +1,12 @@
-import { Table, Column, Model, DataType } from 'sequelize-typescript';
+import {
+  Table,
+  Column,
+  Model,
+  DataType,
+  BeforeCreate,
+  BeforeUpdate,
+} from 'sequelize-typescript';
+import { encodePassword } from 'src/core/utils/bcrypt';
 
 @Table
 export class User extends Model<User> {
@@ -32,4 +40,12 @@ export class User extends Model<User> {
     allowNull: false,
   })
   gender: string;
+
+  @BeforeCreate
+  @BeforeUpdate
+  public static async hashPassword(user: User) {
+    if (user.password) {
+      user.password = await encodePassword(user.password);
+    }
+  }
 }

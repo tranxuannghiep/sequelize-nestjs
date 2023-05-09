@@ -9,7 +9,12 @@ export class UsersService {
     @Inject(USER_REPOSITORY) private readonly userRepository: typeof User,
   ) {}
   async createUser(user: UserDto) {
-    return this.userRepository.create(user);
+    const result = await this.userRepository.create(user);
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { password, ...resultUser } = result.dataValues;
+    return {
+      data: resultUser,
+    };
   }
 
   async getAll() {
