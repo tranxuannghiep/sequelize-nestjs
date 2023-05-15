@@ -24,4 +24,10 @@ export class AuthService {
     const payload = { id: user.id, email: user.email };
     return this.jwtService.sign(payload);
   }
+  async getProfile(email: string) {
+    const profileUser = await this.usersService.findOne(email);
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const { password, ...user } = profileUser.toJSON();
+    return user;
+  }
 }
