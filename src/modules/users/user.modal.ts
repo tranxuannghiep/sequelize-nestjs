@@ -6,6 +6,7 @@ import {
   BeforeCreate,
   BeforeUpdate,
 } from 'sequelize-typescript';
+import { Role, Gender } from 'src/core/utils';
 import { encodePassword } from 'src/core/utils/bcrypt';
 
 @Table
@@ -36,10 +37,18 @@ export class User extends Model<User> {
 
   @Column({
     type: DataType.ENUM,
-    values: ['male', 'female'],
+    values: [Gender.Male, Gender.Female],
     allowNull: false,
   })
   gender: string;
+
+  @Column({
+    type: DataType.ENUM,
+    values: [Role.Admin, Role.Seller, Role.Customer],
+    allowNull: false,
+    defaultValue: Role.Customer,
+  })
+  role: string;
 
   @BeforeCreate
   @BeforeUpdate
