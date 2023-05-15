@@ -5,12 +5,14 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { UsersModule } from './modules/users/users.module';
 import { getDatabaseConfig } from './core/database/database.config';
-import { User } from './modules/users/user.entity';
+import { User } from './modules/users/user.modal';
+import { AuthModule } from './modules/auth/auth.module';
 
 @Module({
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
     UsersModule,
+    AuthModule,
     SequelizeModule.forRoot({
       ...getDatabaseConfig(),
       logging: null,
