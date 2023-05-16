@@ -51,4 +51,14 @@ export class UsersService {
     });
     return user;
   }
+
+  async deleteUserById(id: number) {
+    const result = await this.modalUser.destroy({
+      where: { id },
+    });
+
+    return {
+      data: result === 1,
+    };
+  }
 }
