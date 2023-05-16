@@ -10,7 +10,7 @@ export class UsersService {
   constructor(@InjectModel(User) private readonly modalUser: typeof User) {}
   async createUser(user: UserDto) {
     const result = await this.modalUser.create(user);
-    const { password, ...resultUser } = result;
+    const { password, ...resultUser } = result.toJSON();
     return {
       data: resultUser,
     };

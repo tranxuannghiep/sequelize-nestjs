@@ -17,7 +17,7 @@ import { AuthModule } from './modules/auth/auth.module';
       logging: null,
       autoLoadModels: true,
       sync: {
-        force: true,
+        alter: true,
       },
     }),
   ],
