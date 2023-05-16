@@ -5,9 +5,11 @@ import {
   DataType,
   BeforeCreate,
   BeforeUpdate,
+  HasMany,
 } from 'sequelize-typescript';
 import { Role, Gender } from 'src/core/utils';
 import { encodePassword } from 'src/core/utils/bcrypt';
+import { Book } from './book.model';
 
 @Table
 export class User extends Model<User> {
@@ -49,6 +51,9 @@ export class User extends Model<User> {
     defaultValue: Role.Customer,
   })
   role: string;
+
+  @HasMany(() => Book)
+  book: Book[];
 
   @BeforeCreate
   @BeforeUpdate
